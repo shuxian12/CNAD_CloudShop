@@ -31,7 +31,7 @@ docker build -t cloud_shop .
 
 ### Run Docker Container
 > [!NOTE]
-> Need to wait for 10-30 seconds to create the database and tables.
+> Need to wait for 10~30 seconds to create the database and tables.
 > After `Database tables created successfully` message appears, you can start using the application.
 > ex. `2025/03/22 08:26:48 Database tables created successfully`
 > ![alt text](./img/docker_run.png)
@@ -57,7 +57,7 @@ Please ensure concepts of extensibility, ease of testing, abstraction and approp
 
 ## Architecture
 ```
-cloudShop/
+CNAD_cloudShop/
 ├── src/
 │   ├── domain/                     # Domain models
 │   │   ├── user.go
@@ -92,3 +92,19 @@ cloudShop/
 ├── go.sum                          # Go module lock file
 └── README.md                       # Project documentation
 ```
+
+## Description
+* In this project, I have implemented the project using Golang to finish the speficication.
+* The project is divided into four layers: **domain**, **repository**, **service**, and **cli**:
+
+  - **Domain**: Represents the core business entities (e.g., User, Listing, Category) and their basic logic.  
+  - **Repository**: Handles persistence, such as SQLite database operations, and defines interfaces for data storage. Implement data access methods for each domain model.
+  - **Service**: Contains business logic, orchestrating higher-level operations by combining domain models and repository methods.  
+  - **CLI**: User Interface layer, which provides a command-line interface for user interaction. It captures commands (like CREATE_LISTING, GET_CATEGORY, etc.) and delegates processing to the service layer.
+
+* Since the project has some settings and configurations, I have included a **`.env`** file to store environment variables. Currently, it contains the following variable:
+    * `START_IDX`: The starting index for the listing ID. Current setting is `100000`.
+    * `INPUT_TIME_FORMAT`: Since seconds are not enough to distinguish the time, I have added the date format `2006-01-02 15:04:05.99999999` to the input, which can distinguish the time up to nanoseconds. Default is `2006-01-02 15:04:05`.
+    *  `OUTPUT_TIME_FORMAT`: The output time format, after retrieving the listing from the SQLite database, the time string will not be the same as the input format. In order to make sure to fit the assignment requirements, the format is set to `2006-01-02 15:04:05`.
+
+* By keeping these layers separate, new features can be added more easily without breaking existing code, and each layer can be tested independently.
