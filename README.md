@@ -5,12 +5,47 @@
 
 ## Installation
 ```bash
+cd your/path/to/CNAD_CloudShop
 sh build.sh
 ```
 
 ## Usage
+> [!NOTE]
+> Need to wait for 1~10 seconds to create the database and tables.
+> After `Database tables created successfully` message appears, you can start using the application.
+> ![alt text](./img/run.png)
 ```bash
 sh run.sh
+# sh run.sh < in.in > out.out
+```
+
+## Docker Usage
+> [!IMPORTANT]
+> If above installation or usage is not working, you can use docker to run the application.
+
+### Build Docker Image
+```bash
+cd your/path/to/CNAD_CloudShop
+docker build -t cloud_shop .
+```
+
+### Run Docker Container
+> [!NOTE]
+> Need to wait for 10-30 seconds to create the database and tables.
+> After `Database tables created successfully` message appears, you can start using the application.
+> ex. `2025/03/22 08:26:48 Database tables created successfully`
+> ![alt text](./img/docker_run.png)
+
+* Run the container with interactive mode
+    * Need to input data manually
+```bash
+docker run -it cloud_shop
+```
+
+* Run the container with input file
+    * Create a file ex.`in.in` with input data, and the output will be saved in `out.out`
+```bash
+docker run -i cloud_shop < in.in > out.out
 ```
 
 ## Demands
